@@ -10,6 +10,8 @@ import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.geom.Rectangle;
 import openfl.Assets;
+import model.Machine;
+import model.Machine.Symbol;
 
 
 class Main extends Sprite {
@@ -23,6 +25,10 @@ class Main extends Sprite {
 		super ();
 
         stage.frameRate = 120;
+
+        trace(Machine.REELS);
+        trace(Machine.PAYS[Star]);
+        Machine.stops = [2,3,4];
 
         var bitmapData:BitmapData = Assets.getBitmapData("assets/tileset.png");
         tileset = new Tileset (bitmapData);
