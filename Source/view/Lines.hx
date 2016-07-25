@@ -6,6 +6,8 @@ import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 import model.Machine;
 
+// displays number of lines bet on and buttons for changing them
+
 class Lines extends Sprite {
     private var display:TextField;
     public function new () {

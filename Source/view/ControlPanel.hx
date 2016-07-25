@@ -3,6 +3,8 @@ package view;
 import openfl.display.Sprite;
 import view.SymbolFactory;
 
+// positioning element to hold the controls
+
 class ControlPanel extends Sprite {
     public function new () {
         super();

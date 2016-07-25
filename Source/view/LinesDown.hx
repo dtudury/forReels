@@ -7,6 +7,8 @@ import controller.BetLogic;
 import view.SymbolFactory;
 import model.Machine;
 
+// button to decrement number of lines
+
 class LinesDown extends Sprite {
     public function new () {
         super();

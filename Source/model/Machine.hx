@@ -16,11 +16,14 @@ enum Row {
     Bottom;
 }
 
+// more or less sequential states of the game cycle
 enum State {
     Idle;
     Betting;
     Spinning;
-    Settling;
+    Settling1;
+    Settling2;
+    Settling3;
     Paying;
     Showing_wins;
 }
@@ -34,13 +37,15 @@ class Machine {
     public static var BALANCE_SET(default, never):String = "BALANCE_SET";
     public static var WINNINGS_SET(default, never):String = "WINNINGS_SET";
 
-    //98.33676268861457% payback
+    // this should move to a config file
+    // 98.33676268861457% payback
     public static var PAYS(default, never):Map<Symbol,Int> = [Heart => 2, Moon => 15, Star => 120, Sun => 900];
     public static var REELS(default, never):Array<Array<Symbol>> = [
         [Heart,Heart,Heart,Star,Moon,Heart,Moon,Heart,Sun,Star,Moon,Moon,Heart,Heart,Moon,Heart,Heart,Heart],
         [Moon,Star,Moon,Heart,Moon,Moon,Heart,Star,Sun,Heart,Heart,Heart,Moon,Heart,Heart,Heart,Heart,Heart],
         [Moon,Star,Moon,Heart,Heart,Moon,Moon,Heart,Sun,Heart,Heart,Heart,Heart,Star,Heart,Heart,Moon,Heart]
     ];
+    // payline patterns
     public static var LINES(default, never):Array<Array<Row>> = [
         [Middle, Middle, Middle],
         [Top, Middle, Bottom],
@@ -60,6 +65,7 @@ class Machine {
     ];
 
 
+    //where the reels stop after placing a wager
     public static var stops(default, set):Array<Int> = [0,0,0];
     static function set_stops(in_stops) {
         stops = in_stops;
@@ -67,6 +73,7 @@ class Machine {
         return stops;
     }
 
+    //game cycle phase (should we be "whirring" or "dinging")
     public static var state(default, set):State = Idle;
     static function set_state(in_state:State) {
         state = in_state;
@@ -74,6 +81,7 @@ class Machine {
         return state;
     }
 
+    //bet per line
     public static var wager(default, set):Int = 1;
     static function set_wager(in_wager:Int) {
         wager = in_wager;
@@ -81,6 +89,7 @@ class Machine {
         return wager;
     }
 
+    //number of lines
     public static var lines(default, set):Int = 1;
     static function set_lines(in_lines:Int) {
         lines = in_lines;
@@ -88,13 +97,15 @@ class Machine {
         return lines;
     }
 
-    public static var balance(default, set):Int = 1;
+    //actual balance (displayed balance might be less winnings)
+    public static var balance(default, set):Int = 10000;
     static function set_balance(in_balance:Int) {
         balance = in_balance;
         eventDispatcher.dispatchEvent(new Event(BALANCE_SET));
         return balance;
     }
 
+    //how much the player won from the most recent wager
     public static var winnings(default, set):Int = 1;
     static function set_winnings(in_winnings:Int) {
         winnings = in_winnings;

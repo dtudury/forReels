@@ -8,12 +8,17 @@ import view.SymbolFactory;
 import model.Machine;
 import model.Machine.Symbol;
 
+// ReelBlurs listens to the Machine state and shows itself while
+// spinning and hides itself incrementally as Settling resolves
+
 class ReelBlurs extends Tilemap {
     public function new(stage:Stage) {
         super(SymbolFactory.SSIZE * 3, SymbolFactory.SSIZE * 3, SymbolFactory.instance.tileset);
         stage.addEventListener (Event.ENTER_FRAME, onEnterFrame);
     }
 
+    // just spinning for now, framerate is being finicky after adding buttons...
+    // move buttons to same tilemap?
     private function onEnterFrame(event:Event):Void {
         var symbolFactory:SymbolFactory = SymbolFactory.instance;
         removeTiles();

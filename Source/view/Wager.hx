@@ -6,6 +6,8 @@ import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 import model.Machine;
 
+// displays bet per line and buttons for changing it
+
 class Wager extends Sprite {
     private var display:TextField;
     public function new () {

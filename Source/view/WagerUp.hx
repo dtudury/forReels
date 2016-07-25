@@ -7,6 +7,8 @@ import controller.BetLogic;
 import view.SymbolFactory;
 import model.Machine;
 
+// button to increase bet per line
+
 class WagerUp extends Sprite {
     public function new () {
         super();

@@ -7,6 +7,8 @@ import controller.BetLogic;
 import view.SymbolFactory;
 import model.Machine;
 
+// button to increment number of lines
+
 class LinesUp extends Sprite {
     public function new () {
         super();

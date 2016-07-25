@@ -6,6 +6,8 @@ import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 import model.Machine;
 
+// displays product of number of lines bet on and bet per line
+
 class TotalWager extends Sprite {
     private var display:TextField;
     public function new () {

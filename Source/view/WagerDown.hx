@@ -7,6 +7,8 @@ import controller.BetLogic;
 import view.SymbolFactory;
 import model.Machine;
 
+// button to decrease bet per line
+
 class WagerDown extends Sprite {
     public function new () {
         super();

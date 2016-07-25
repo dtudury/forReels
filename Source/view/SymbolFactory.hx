@@ -6,8 +6,11 @@ import openfl.display.Tile;
 import openfl.display.Tileset;
 import openfl.geom.Rectangle;
 
+// factory for tiles cut out from our main png
+
 class SymbolFactory {
 
+    //how big the square around our symbols is
     public static var SSIZE(default, never):Int = 128;
 
     //static methods weren't getting Assets so wrapped it up in a singleton
@@ -31,6 +34,8 @@ class SymbolFactory {
     private var sunBlurIndex:Int;
     private var plusIndex:Int;
     private var minusIndex:Int;
+
+    //reading the bitmap and setting up the tileset can't happen until the game starts
     private function new () {
         var bitmapData:BitmapData = Assets.getBitmapData("assets/symbols.png");
         this.tileset = new Tileset (bitmapData);
@@ -45,6 +50,8 @@ class SymbolFactory {
         this.plusIndex = tileset.addRect (new Rectangle(448, 32, 32, 32));
         this.minusIndex = tileset.addRect (new Rectangle(448, 96, 32, 32));
     }
+
+    //getters for our tiles
     public function star():Tile {
         return new Tile(starIndex);
     }
