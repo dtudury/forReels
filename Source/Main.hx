@@ -2,9 +2,8 @@ package;
 
 import openfl.display.FPS;
 import openfl.display.Sprite;
-import display.ReelBlurs;
-import display.ControlPanel;
-
+import view.ReelBlurs;
+import view.ControlPanel;
 
 class Main extends Sprite {
 

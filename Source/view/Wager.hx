@@ -1,4 +1,4 @@
-package display;
+package view;
 
 import openfl.display.Sprite;
 import openfl.events.Event;
@@ -6,28 +6,31 @@ import openfl.text.TextField;
 import openfl.text.TextFieldAutoSize;
 import model.Machine;
 
-class TotalWager extends Sprite {
+class Wager extends Sprite {
     private var display:TextField;
     public function new () {
         super();
-        x = 128;
+        x = 256;
         var label = new TextField();
-        label.width = 128;
+        label.x = 32;
+        label.width = 64;
         label.autoSize = TextFieldAutoSize.CENTER;
         label.selectable = false;
-        label.text = "Total Wager";
+        label.text = "Wager";
         addChild(label);
         display = new TextField();
-        display.width = 128;
+        display.x = 32;
+        display.width = 64;
         display.autoSize = TextFieldAutoSize.CENTER;
         display.selectable = false;
         display.y = 20;
         addChild(display);
-        Machine.eventDispatcher.addEventListener(Machine.LINES_SET, updateDisplay);
         Machine.eventDispatcher.addEventListener(Machine.WAGER_SET, updateDisplay);
         updateDisplay(new Event(Event.CHANGE));
+        addChild(new WagerUp());
+        addChild(new WagerDown());
     }
     private function updateDisplay(event:Event) {
-        display.text = Std.string(Machine.lines * Machine.wager);
+        display.text = Std.string(Machine.wager);
     }
 }
