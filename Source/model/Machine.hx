@@ -5,8 +5,8 @@ import openfl.events.EventDispatcher;
 
 enum Symbol { 
     Heart; 
-    Moon; 
     Star;
+    Moon; 
     Sun;
 }
 
@@ -28,7 +28,11 @@ enum State {
 class Machine {
 
     public static var STOPS_SET(default, never):String = "STOPS_SET";
-    public static var STATE_SET(default, never):String = "STOPS_SET";
+    public static var STATE_SET(default, never):String = "STATE_SET";
+    public static var WAGER_SET(default, never):String = "WAGER_SET";
+    public static var LINES_SET(default, never):String = "LINES_SET";
+    public static var BALANCE_SET(default, never):String = "BALANCE_SET";
+    public static var WINNINGS_SET(default, never):String = "WINNINGS_SET";
 
     //98.33676268861457% payback
     public static var PAYS(default, never):Map<Symbol,Int> = [Heart => 2, Moon => 15, Star => 120, Sun => 900];
@@ -68,6 +72,34 @@ class Machine {
         state = in_state;
         eventDispatcher.dispatchEvent(new Event(STATE_SET));
         return state;
+    }
+
+    public static var wager(default, set):Int = 1;
+    static function set_wager(in_wager:Int) {
+        wager = in_wager;
+        eventDispatcher.dispatchEvent(new Event(WAGER_SET));
+        return wager;
+    }
+
+    public static var lines(default, set):Int = 1;
+    static function set_lines(in_lines:Int) {
+        lines = in_lines;
+        eventDispatcher.dispatchEvent(new Event(LINES_SET));
+        return lines;
+    }
+
+    public static var balance(default, set):Int = 1;
+    static function set_balance(in_balance:Int) {
+        balance = in_balance;
+        eventDispatcher.dispatchEvent(new Event(BALANCE_SET));
+        return balance;
+    }
+
+    public static var winnings(default, set):Int = 1;
+    static function set_winnings(in_winnings:Int) {
+        winnings = in_winnings;
+        eventDispatcher.dispatchEvent(new Event(WINNINGS_SET));
+        return winnings;
     }
 
     public static var eventDispatcher = new EventDispatcher();
