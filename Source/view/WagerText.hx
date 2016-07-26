@@ -13,10 +13,10 @@ class WagerText extends TextField {
         width = 80;
         autoSize = TextFieldAutoSize.CENTER;
         selectable = false;
-        Machine.eventDispatcher.addEventListener(Machine.LINES_SET, updateDisplay);
+        Machine.eventDispatcher.addEventListener(Machine.WAGER_SET, updateDisplay);
         updateDisplay();
     }
     private function updateDisplay(event:Event = null) {
-        text = Std.string(Machine.lines * Machine.wager);
+        text = Std.string(Machine.wager);
     }
 }

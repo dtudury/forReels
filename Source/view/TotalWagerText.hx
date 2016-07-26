@@ -14,6 +14,7 @@ class TotalWagerText extends TextField {
         autoSize = TextFieldAutoSize.CENTER;
         selectable = false;
         Machine.eventDispatcher.addEventListener(Machine.LINES_SET, updateDisplay);
+        Machine.eventDispatcher.addEventListener(Machine.WAGER_SET, updateDisplay);
         updateDisplay();
     }
     private function updateDisplay(event:Event = null) {

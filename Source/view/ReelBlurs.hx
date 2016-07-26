@@ -20,7 +20,7 @@ class ReelBlurs {
         var xOffset:Int = Std.int((TileFactory.stage.stageWidth - TileFactory.SSIZE * 3) / 2);
         var dt:Int = Std.int(2 * Date.now().getTime());
         for (i in 0...Machine.REELS.length) {
-            var reel = Machine.REELS[i];
+            var reel:Array<Symbol> = Machine.REELS[i];
             for (j in 0...reel.length) {
                 var symbol:Symbol = reel[j];
                 var d:Int = j * TileFactory.SSIZE + dt + i * TileFactory.SSIZE * 4;

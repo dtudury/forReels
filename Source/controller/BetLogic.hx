@@ -8,15 +8,15 @@ import model.Machine;
 // also any touch should set state to Betting (from Idle or Showing_wins)
 class BetLogic {
     //just increment up to 15
-    public static function onLinesUp(event:MouseEvent):Void {
+    public static function onLinesUp():Void {
         if (Machine.lines < 15) Machine.lines++;
     }
     //just decrement down to 1
-    public static function onLinesDown(event:MouseEvent):Void {
+    public static function onLinesDown():Void {
         if (Machine.lines > 1) Machine.lines--;
     }
     //1 -> 2 -> 5 -> 10 -> 20 -> 50 -> 100 etc (define upper limit to stop overflows)
-    public static function onWagerUp(event:MouseEvent):Void {
+    public static function onWagerUp():Void {
         var wager:Int = Machine.wager;
         var magnitude:Int = 1;
         while (wager >= 10) {
@@ -34,7 +34,7 @@ class BetLogic {
         Machine.wager = wager * magnitude;
     }
     //1000 -> 500 -> 200 -> 100 -> 50 -> 20 -> 10 etc down to 1
-    public static function onWagerDown(event:MouseEvent):Void {
+    public static function onWagerDown():Void {
         var wager:Int = Machine.wager;
         var magnitude:Int = 1;
         while (wager >= 10) {
