@@ -28,6 +28,16 @@ enum State {
     Showing_wins;
 }
 
+enum Button {
+    None;
+    WagerUp;
+    WagerDown;
+    LineUp;
+    LineDown;
+    Spin;
+    Paytable;
+}
+
 class Machine {
 
     public static var STOPS_SET(default, never):String = "STOPS_SET";

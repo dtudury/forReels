@@ -1,46 +1,42 @@
 package view;
 
-import openfl.display.Stage;
 import openfl.display.Tile;
-import openfl.display.Tilemap;
-import openfl.events.Event;
-import view.SymbolFactory;
+import view.TileFactory;
 import model.Machine;
 import model.Machine.Symbol;
 
 // ReelBlurs listens to the Machine state and shows itself while
 // spinning and hides itself incrementally as Settling resolves
 
-class ReelBlurs extends Tilemap {
-    public function new(stage:Stage) {
-        super(SymbolFactory.SSIZE * 3, SymbolFactory.SSIZE * 3, SymbolFactory.instance.tileset);
-        stage.addEventListener (Event.ENTER_FRAME, onEnterFrame);
+class ReelBlurs {
+    public function new() {
+        TileFactory.add_redrawer(redraw);
+        redraw();
     }
 
     // just spinning for now, framerate is being finicky after adding buttons...
     // move buttons to same tilemap?
-    private function onEnterFrame(event:Event):Void {
-        var symbolFactory:SymbolFactory = SymbolFactory.instance;
-        removeTiles();
-        var counter:Int = Std.int(2 * Date.now().getTime());
+    private function redraw():Void {
+        var xOffset:Int = Std.int((TileFactory.stage.stageWidth - TileFactory.SSIZE * 3) / 2);
+        var dt:Int = Std.int(2 * Date.now().getTime());
         for (i in 0...Machine.REELS.length) {
             var reel = Machine.REELS[i];
             for (j in 0...reel.length) {
                 var symbol:Symbol = reel[j];
-                var d:Int = j * SymbolFactory.SSIZE + counter + i * SymbolFactory.SSIZE * 4;
-                d %= reel.length * SymbolFactory.SSIZE;
-                d -= SymbolFactory.SSIZE * 2;
-                if (d < SymbolFactory.SSIZE * 3) {
+                var d:Int = j * TileFactory.SSIZE + dt + i * TileFactory.SSIZE * 4;
+                d %= reel.length * TileFactory.SSIZE;
+                d -= TileFactory.SSIZE * 2;
+                if (d < TileFactory.SSIZE * 3) {
                     var tile:Tile;
                     switch symbol {
-                        case Symbol.Heart: tile = symbolFactory.heartBlur();
-                        case Symbol.Star: tile = symbolFactory.starBlur();
-                        case Symbol.Moon: tile = symbolFactory.moonBlur();
-                        case Symbol.Sun: tile = symbolFactory.sunBlur();
+                        case Symbol.Heart: tile = TileFactory.heartBlur();
+                        case Symbol.Star: tile = TileFactory.starBlur();
+                        case Symbol.Moon: tile = TileFactory.moonBlur();
+                        case Symbol.Sun: tile = TileFactory.sunBlur();
                     }
-                    tile.x = i * SymbolFactory.SSIZE;
+                    tile.x = xOffset + i * TileFactory.SSIZE;
                     tile.y = d;
-                    addTile(tile);
+                    TileFactory.tilemap.addTile(tile);
                 }
             }
         }

@@ -2,16 +2,25 @@ package;
 
 import openfl.display.FPS;
 import openfl.display.Sprite;
+import view.TileFactory;
+import view.Reels;
 import view.ReelBlurs;
 import view.ControlPanel;
+import view.ControlPanelArt;
+import view.Gutters;
 
 class Main extends Sprite {
 
     public function new () {
-        super ();
+        super();
         stage.frameRate = 60;
-        addChild (new ReelBlurs(stage));
-        addChild (new ControlPanel());
-        addChild (new FPS());
+        TileFactory.init(stage);
+        addChild(TileFactory.tilemap);
+        new ReelBlurs();
+        new Reels();
+        new ControlPanelArt();
+        new Gutters();
+        addChild(new ControlPanel());
+        addChild(new FPS());
     }
 }
