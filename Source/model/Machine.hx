@@ -9,21 +9,12 @@ enum Symbol {
     Moon; 
     Sun;
 }
-
-enum Row {
-    Top;
-    Middle;
-    Bottom;
-}
-
 // more or less sequential states of the game cycle
 enum State {
     Idle;
     Betting;
     Spinning;
-    Settling1;
-    Settling2;
-    Settling3;
+    Settling;
     Paying;
     Showing_wins;
 }
@@ -46,6 +37,7 @@ class Machine {
     public static var LINES_SET(default, never):String = "LINES_SET";
     public static var BALANCE_SET(default, never):String = "BALANCE_SET";
     public static var WINNINGS_SET(default, never):String = "WINNINGS_SET";
+    public static var OVER_SET(default, never):String = "OVER_SET";
 
     // this should move to a config file
     // 98.33676268861457% payback
@@ -56,22 +48,22 @@ class Machine {
         [Moon,Star,Moon,Heart,Heart,Moon,Moon,Heart,Sun,Heart,Heart,Heart,Heart,Star,Heart,Heart,Moon,Heart]
     ];
     // payline patterns
-    public static var LINES(default, never):Array<Array<Row>> = [
-        [Middle, Middle, Middle],
-        [Top, Middle, Bottom],
-        [Bottom, Middle, Top],
-        [Top, Top, Top],
-        [Bottom, Bottom, Bottom],
-        [Middle, Top, Middle],
-        [Middle, Bottom, Middle],
-        [Top, Middle, Top],
-        [Bottom, Middle, Bottom],
-        [Top, Middle, Middle],
-        [Bottom, Middle, Middle],
-        [Middle, Top, Top],
-        [Middle, Bottom, Bottom],
-        [Top, Top, Middle],
-        [Bottom, Bottom, Middle]
+    public static var LINES(default, never):Array<Array<Int>> = [
+        [1, 1, 1],
+        [0, 1, 2],
+        [2, 1, 0],
+        [0, 0, 0],
+        [2, 2, 2],
+        [1, 0, 1],
+        [1, 2, 1],
+        [0, 1, 0],
+        [2, 1, 2],
+        [0, 1, 1],
+        [2, 1, 1],
+        [1, 0, 0],
+        [1, 2, 2],
+        [0, 0, 1],
+        [2, 2, 1]
     ];
 
 
@@ -86,9 +78,17 @@ class Machine {
     //game cycle phase (should we be "whirring" or "dinging")
     public static var state(default, set):State = Idle;
     static function set_state(in_state:State) {
+        trace(in_state);
         state = in_state;
+        _stateSetTime = Date.now().getTime();
         eventDispatcher.dispatchEvent(new Event(STATE_SET));
         return state;
+    }
+
+    public static var stateSetTime(get, never):Float;
+    private static var _stateSetTime:Float = 0;
+    public static function get_stateSetTime():Float {
+        return _stateSetTime;
     }
 
     //bet per line
@@ -100,7 +100,7 @@ class Machine {
     }
 
     //number of lines
-    public static var lines(default, set):Int = 1;
+    public static var lines(default, set):Int = 15;
     static function set_lines(in_lines:Int) {
         lines = in_lines;
         eventDispatcher.dispatchEvent(new Event(LINES_SET));
@@ -121,6 +121,14 @@ class Machine {
         winnings = in_winnings;
         eventDispatcher.dispatchEvent(new Event(WINNINGS_SET));
         return winnings;
+    }
+
+    //game cycle phase (should we be "whirring" or "dinging")
+    public static var over(default, set):Button = None;
+    static function set_over(in_over:Button) {
+        over = in_over;
+        eventDispatcher.dispatchEvent(new Event(OVER_SET));
+        return over;
     }
 
     public static var eventDispatcher = new EventDispatcher();

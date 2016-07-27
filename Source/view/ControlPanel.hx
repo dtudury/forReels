@@ -16,6 +16,8 @@ class ControlPanel extends Sprite {
         addChild(new LinesText());
         addChild(new WagerText());
         addChild(new TotalWagerText());
+        addChild(new BalanceText());
+        addChild(new WinningsText());
         TileFactory.stage.addEventListener(MouseEvent.MOUSE_DOWN, handle_click);
         TileFactory.stage.addEventListener(MouseEvent.MOUSE_MOVE, handle_move);
     }

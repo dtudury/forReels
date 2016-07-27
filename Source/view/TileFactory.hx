@@ -39,6 +39,7 @@ class TileFactory {
     private static var _sunBlurIndex:Int;
     private static var _plusIndex:Int;
     private static var _minusIndex:Int;
+    private static var _pointerIndex:Int;
     private static var _controlPanelIndex:Int;
     private static var _whiteSquareIndex:Int;
     private static var _redraws:Array<Void->Void> = [];
@@ -60,6 +61,7 @@ class TileFactory {
         _whiteSquareIndex = _tileset.addRect (new Rectangle(0, 352, 1, 1));
         _plusIndex = _tileset.addRect (new Rectangle(448, 32, 32, 32));
         _minusIndex = _tileset.addRect (new Rectangle(448, 96, 32, 32));
+        _pointerIndex = _tileset.addRect (new Rectangle(32, 352, 17, 22));
         _stage.addEventListener(Event.ENTER_FRAME, _clear_and_redraw);
     }
 
@@ -108,5 +110,8 @@ class TileFactory {
     }
     public static function minus():Tile {
         return new Tile(_minusIndex);
+    }
+    public static function pointer():Tile {
+        return new Tile(_pointerIndex);
     }
 }

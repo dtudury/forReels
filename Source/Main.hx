@@ -8,6 +8,7 @@ import view.ReelBlurs;
 import view.ControlPanel;
 import view.ControlPanelArt;
 import view.Gutters;
+import view.RedHand;
 
 class Main extends Sprite {
 
@@ -19,6 +20,7 @@ class Main extends Sprite {
         new ReelBlurs();
         new Reels();
         new ControlPanelArt();
+        new RedHand();
         new Gutters();
         addChild(new ControlPanel());
         addChild(new FPS());

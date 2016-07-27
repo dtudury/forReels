@@ -2,6 +2,7 @@ package controller;
 
 import openfl.events.MouseEvent;
 import model.Machine;
+import model.Machine.State;
 
 // what our buttons do when pressed
 // should listen to Machine state and do nothing during resolve phases
@@ -51,5 +52,15 @@ class BetLogic {
         }
         if (magnitude < 1) Machine.wager = 1;
         else Machine.wager = wager * magnitude;
+    }
+    public static function payout():Void {
+        if (Machine.winnings > 0) {
+            Machine.state = State.Paying;
+        } else {
+            Machine.state = State.Idle;
+        }
+    }
+    public static function showWins():Void {
+        Machine.state = State.Showing_wins;
     }
 }
